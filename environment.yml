@@ -8,8 +8,10 @@ dependencies:
   - numpy
   - scipy
   - matplotlib
+  - pandas
   - mkl
   - discretize
   - pip:
+    - git+https://github.com/simpeg/simpegEM1D.git
     - git+https://github.com/simpeg-research/kang-2019-3D-aem.git
     - git+https://github.com/simpeg-research/casingSimulations.git

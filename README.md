@@ -2,6 +2,12 @@
 
 # The effect of water wealls on time-domain airborne electromagnetic data
 
+[![Build Status](https://travis-ci.org/simpeg-research/kang-2019-impact-of-wells.svg?branch=master)](https://travis-ci.org/simpeg-research/kang-2019-impact-of-wells)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/simpeg-research/kang-2019-impact-of-wells/master?filepath=notebooks%2Findex.ipynb)
+<!-- [![DOI](https://zenodo.org/badge/127807359.svg)](https://zenodo.org/badge/latestdoi/127807359) -->
+[![License](https://img.shields.io/github/license/simpeg-research/kang-2019-impact-of-wells.svg)](https://github.com/simpeg-research/kang-2019-impact-of-wells/blob/master/LICENSE)
+[![SimPEG](https://img.shields.io/badge/powered%20by-SimPEG-blue.svg)](http://simpeg.xyz)
+
 Our research is motivated by obtaining co-located well data and airborne electromagnetic (AEM) data for the purpose of imaging the large-scale subsurface hydrogeologic structure using an AEM technique. Results from an AEM survey in Butte and Glenn Counties, California, U. S. A., where 41 water wells are located within 100 m of the AEM flight lines, provide a unique opportunity to investigate the effect of water wells on AEM data. We perform systematic numerical analyses and examination of the field data to investigate the effects related to water wells on AEM data.
 
 This is a repository where the codes and exmamples used in our paper is released to the public such that other people can run similar analyses to better design their own AEM survey for the purpose of imaging hydrogeologic structure of the subsurface.
@@ -34,7 +40,7 @@ This repository contains the notebooks used to generate the examples shown in "T
 ## Launching the notebooks
 
 ### Online
-The notebooks can be run online through [mybinder](https://mybinder.org/v2/gh/simpeg-research/kang-2018-spectral-inducedpolarization/master?filepath=notebooks%2Findex.ipynb)
+The notebooks can be run online through [mybinder](https://mybinder.org/v2/gh/simpeg-research/kang-2019-impact-of-wells/master?filepath=notebooks%2Findex.ipynb)
 
 ### Locally
 To run them locally, you will need to have python installed, preferably through [anaconda](https://www.anaconda.com/download/).
@@ -42,13 +48,13 @@ To run them locally, you will need to have python installed, preferably through 
 You can then clone this repository. From a command line, run
 
 ```
-git clone https://github.com/simpeg-research/kang-2018-spectral-inducedpolarization.git
+git clone https://github.com/simpeg-research/kang-2019-impact-of-wells.git
 ```
 
-Then `cd` into the `kang-2018-spectral-inducedpolarization`
+Then `cd` into the `kang-2019-impact-of-wells`
 
 ```
-cd kang-2018-spectral-inducedpolarization
+cd kang-2019-impact-of-wells
 ```
 
 To setup your software environment, we recommend you use the provided conda environment
@@ -96,7 +102,7 @@ year = {2020}
 
 ## Issues
 
-If you run into problems or bugs, please let us know by [creating an issue](https://github.com/simpeg-research/kang-2018-spectral-inducedpolarization/issues/new) in this repository.
+If you run into problems or bugs, please let us know by [creating an issue](https://github.com/simpeg-research/kang-2019-impact-of-wells/issues/new) in this repository.
 
 ## License
 
