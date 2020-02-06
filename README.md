@@ -1,6 +1,6 @@
 **| [Overview](#overview) | [Launching the notebooks](#launching-the-notebooks) | [Running the notebooks](#running-the-notebooks) | [Citation](#citation) | [Issues](#issues) | [License](#license) |**
 
-# The effect of water wealls on time-domain airborne electromagnetic data
+# The effect of water wells on time-domain airborne electromagnetic data
 
 [![Build Status](https://travis-ci.org/simpeg-research/kang-2019-impact-of-wells.svg?branch=master)](https://travis-ci.org/simpeg-research/kang-2019-impact-of-wells)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/simpeg-research/kang-2019-impact-of-wells/master?filepath=notebooks%2Findex.ipynb)
