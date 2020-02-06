@@ -31,8 +31,6 @@ This repository contains the notebooks used to generate the examples shown in "T
         - Figure 10
     - [6-butte-powerline-effect](notebooks/6-butte-powerline-effect.ipynb)
         - Figures 11, 12
-    - [6-2-SIP_inversion_3D_load](notebooks/6-2-SIP_inversion_3D_load.ipynb):
-        - Figures 12-14
     - [a-1-background-resistivity](notebooks/a-1-background-resistivity.ipynb)
     - [a-2-layer-thickness](notebooks/a-2-layer-thickness.ipynb)
 
