@@ -3,7 +3,7 @@
 # The effect of water wells on time-domain airborne electromagnetic data
 
 [![Build Status](https://travis-ci.org/simpeg-research/kang-2019-impact-of-wells.svg?branch=master)](https://travis-ci.org/simpeg-research/kang-2019-impact-of-wells)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/simpeg-research/kang-2019-impact-of-wells/master?filepath=notebooks%2Findex.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/simpeg-research/kang-2019-impact-of-wells/master?filepath=index.ipynb)
 <!-- [![DOI](https://zenodo.org/badge/127807359.svg)](https://zenodo.org/badge/latestdoi/127807359) -->
 [![License](https://img.shields.io/github/license/simpeg-research/kang-2019-impact-of-wells.svg)](https://github.com/simpeg-research/kang-2019-impact-of-wells/blob/master/LICENSE)
 [![SimPEG](https://img.shields.io/badge/powered%20by-SimPEG-blue.svg)](http://simpeg.xyz)
