@@ -1,37 +1,34 @@
 **| [Overview](#overview) | [Launching the notebooks](#launching-the-notebooks) | [Running the notebooks](#running-the-notebooks) | [Citation](#citation) | [Issues](#issues) | [License](#license) |**
 
-# Inversions of time-domain spectral induced polarization data using stretched exponential
+# The effect of water wealls on time-domain airborne electromagnetic data
 
-[![Build Status](https://travis-ci.org/simpeg-research/kang-2018-spectral-inducedpolarization.svg?branch=master)](https://travis-ci.org/simpeg-research/kang-2018-spectral-inducedpolarization)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/simpeg-research/kang-2018-spectral-inducedpolarization/master?filepath=index.ipynb)
-<!-- [![DOI](https://zenodo.org/badge/127807359.svg)](https://zenodo.org/badge/latestdoi/127807359) -->
-[![License](https://img.shields.io/github/license/simpeg-research/kang-2018-spectral-inducedpolarization.svg)](https://github.com/simpeg-research/kang-2018-spectral-inducedpolarization/blob/master/LICENSE)
-[![SimPEG](https://img.shields.io/badge/powered%20by-SimPEG-blue.svg)](http://simpeg.xyz)
+Our research is motivated by obtaining co-located well data and airborne electromagnetic (AEM) data for the purpose of imaging the large-scale subsurface hydrogeologic structure using an AEM technique. Results from an AEM survey in Butte and Glenn Counties, California, U. S. A., where 41 water wells are located within 100 m of the AEM flight lines, provide a unique opportunity to investigate the effect of water wells on AEM data. We perform systematic numerical analyses and examination of the field data to investigate the effects related to water wells on AEM data.
 
-<img src="notebooks/figures/inversion_sip_3d.png" width=60% align="middle">
+This is a repository where the codes and exmamples used in our paper is released to the public such that other people can run similar analyses to better design their own AEM survey for the purpose of imaging hydrogeologic structure of the subsurface.
+
+<img src="notebooks/figures/figure-2.png" width=60% align="middle">
 
 ## Overview
 
-This repository contains the notebooks used to generate the examples shown in "Inversions of time-domain spectral induced polarization data using stretched exponential" by [Seogi Kang](https://github.com/sgkang) and [Douglas W. Oldenburg](https://github.com/dougoldenburg). The list of the notebooks are:
+This repository contains the notebooks used to generate the examples shown in "The effect of water wealls on time-domain airborne electromagnetic data " by [Seogi Kang](https://github.com/sgkang), [Noah Dewar](https://earth.stanford.edu/people/noah-dewar), and [Rosemary Knight](https://earth.stanford.edu/people/rosemary-knight). The list of the notebooks are:
 
 - [notebooks](notebooks): contains the notebooks used to generate figures in the paper and thesis
-    - [1-Plot-Cole-Cole.ipynb](notebooks/1-Plot-Cole-Cole.ipynb):
-        - Figure 1
-    - [2-Fit-ColeCole-with-StrechedExponential](notebooks/2-Fit-ColeCole-with-StrechedExponential.ipynb):
-        - Figure 2
-    - [3-DC-SIP-data](notebooks/3-DC-SIP-data.ipynb):
-        - Figures 5 and 6
-    - [4-DC-SIP-inversion-2D](notebooks/4-DC-SIP-inversion-2D.ipynb):
-        - Figures 7-11
-    - [5-DC_inversion_3D](notebooks/5-DC_inversion_3D.ipynb):
-    - [6-1-SIP_inversion_3D](notebooks/6-1-SIP_inversion_3D.ipynb)
+    - [1-steel-casing-effect.ipynb](notebooks/1-steel-casing-effect.ipynb):
+        - Figure 4, 5, 6
+    - [2-power-line-plot](notebooks/2-power-line-plot.ipynb):
+        - Figure 7
+    - [3-accuracy](notebooks/3-accuracy.ipynb):
+        - Figures 8
+    - [4-nearsurface-resistivity](notebooks/4-nearsurface-resistivity.ipynb):
+        - Figures 9
+    - [5-n-powerline-loops](notebooks/5-n-powerline-loops.ipynb):
+        - Figure 10
+    - [6-butte-powerline-effect](notebooks/6-butte-powerline-effect.ipynb)
+        - Figures 11, 12
     - [6-2-SIP_inversion_3D_load](notebooks/6-2-SIP_inversion_3D_load.ipynb):
         - Figures 12-14
-    - [6-2-SIP_inversion_3D_load](notebooks/6-2-SIP_inversion_3D_load.ipynb):
-        - Figures 12-14
-    - [7-Generate-porphyry-model-and-data](notebooks/7-Generate-porphyry-model-and-data.ipynb)
-    - [8-IP_inversion_3D](notebooks/8-IP_inversion_3D.ipynb)
-    - [9-Linearization-tests](notebooks/9-Linearization-tests.ipynb)
+    - [a-1-background-resistivity](notebooks/a-1-background-resistivity.ipynb)
+    - [a-2-layer-thickness](notebooks/a-2-layer-thickness.ipynb)
 
 
 ## Launching the notebooks
@@ -83,17 +80,17 @@ For more information on running Jupyter notebooks, see the [Jupyter Documentatio
 
 ## Citation
 
-Kang, S., & Oldenburg, D. W. (2019). Inversions of time-domain spectral induced polarization data using stretched exponential.
+Kang, S., Dewar, N.,& Knight, R. (2020).
 
 ```
-@article{kang2019,
-author = {Kang, Seogi and Oldenburg, Douglas W},
-journal = {Geophysical Journal International},
+@article{kang2020,
+author = {Kang, Seogi,  Dewar, Noah, and Knight, Rosemary},
+journal = {TBA},
 number = {},
 pages = {},
-title = {{Inversions of time-domain spectral induced polarization data using stretched exponential.}},
+title = {{The effect of water wealls on time-domain airborne electromagnetic data.}},
 volume = {},
-year = {2019}
+year = {2020}
 }
 ```
 
@@ -104,3 +101,7 @@ If you run into problems or bugs, please let us know by [creating an issue](http
 ## License
 
 These notebooks are licensed under the [MIT License](/LICENSE) which allows academic and commercial re-use and adaptation of this work.
+
+## Version
+
+Version: 0.0.1

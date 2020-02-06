@@ -1,4 +1,4 @@
-name: sip-environment
+name: impact-of-wells-environment
 
 channels:
   - conda-forge
@@ -11,4 +11,5 @@ dependencies:
   - mkl
   - discretize
   - pip:
-    - SimPEG
+    - git+https://github.com/simpeg-research/kang-2019-3D-aem.git
+    - git+https://github.com/simpeg-research/casingSimulations.git
