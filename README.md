@@ -1,6 +1,6 @@
 **| [Overview](#overview) | [Launching the notebooks](#launching-the-notebooks) | [Running the notebooks](#running-the-notebooks) | [Citation](#citation) | [Issues](#issues) | [License](#license) |**
 
-# The effect of water wealls on time-domain airborne electromagnetic data
+# The effect of water wells on time-domain airborne electromagnetic data
 
 Our research is motivated by obtaining co-located well data and airborne electromagnetic (AEM) data for the purpose of imaging the large-scale subsurface hydrogeologic structure using an AEM technique. Results from an AEM survey in Butte and Glenn Counties, California, U. S. A., where 41 water wells are located within 100 m of the AEM flight lines, provide a unique opportunity to investigate the effect of water wells on AEM data. We perform systematic numerical analyses and examination of the field data to investigate the effects related to water wells on AEM data.
 
