@@ -15,14 +15,9 @@ mkl_set_num_threads(num_threads)
 
 tmin, tmax = 1e-6, 1e-2
 sigma_for_padding = 1./100.
-# print (diffusion_distance(1e-2, sigma_for_padding) * 2)
-# print (diffusion_distance(1e-6, sigma_for_padding) / 2.)
-# print (diffusion_distance(1e-6, sigma_for_padding) * 2)
 padding_distance = np.round(diffusion_distance(1e-2, sigma_for_padding) * 2)
 
-sigma_halfspace = 1./20.
-
-data_dir = "./data"
+data_dir = "./data/"
 waveform_hm = np.loadtxt(data_dir+"HM_butte_312.txt")
 time_gates_hm = np.loadtxt(data_dir+"HM_butte_312_gates")[7:,:] * 1e-6
 waveform_lm = np.loadtxt(data_dir+"LM_butte_312.txt")
@@ -47,15 +42,18 @@ z = np.array([0.])
 dem = Utils.ndgrid(x,y,z)
 
 
-result_dir = "../n_powerline_loops/"
+result_dir = "./source_heights/"
 
 maxLevel = 11
 h = [0.0625, 0.0625, 0.0625]
-octreeLevel = [0, 0, 0, 0, 0, 0, 0, 4, 4, 10]
-n_towers = [2, 4, 6, 8, 10, 12, 14, 16, 18]
-layer_thickness = 4.
+octreeLevel = [0, 0, 0, 0, 0, 1, 1, 4, 4, 10]
+n_tower = 2
+ground_resistance = 20.
+layer_thickness = 4
+resistivity_near = 20.
 
-for i_tower, n_tower in enumerate(n_towers):
+source_heights = [20, 40, 60, 80]
+for i_src, source_height in enumerate(source_heights):
 
     padDist = np.ones((3, 2)) * padding_distance
     mesh = meshBuilder(dem, h, padDist,
@@ -64,6 +62,16 @@ for i_tower, n_tower in enumerate(n_towers):
     # Refine the mesh around topographyttb
     mesh = refineTree(mesh, dem, dtype='surface',
                                        octreeLevels=octreeLevel, finalize=False)
+    
+    y = np.linspace(-40, 40)
+    x = np.linspace(-10, 10)
+    z = np.array([0.])
+    tmp = Utils.ndgrid(x,y,z)
+
+    # Refine the mesh around topography
+    mesh = refineTree(mesh, tmp, dtype='surface',
+                                       octreeLevels=[0, 0, 0, 0, 0, 1], finalize=False)
+
     n_segment = int(n_tower)
     l_copper = 80.
     ys = np.arange(n_segment) * l_copper
@@ -101,17 +109,6 @@ for i_tower, n_tower in enumerate(n_towers):
     # pts = np.vstack((np.vstack(pts_top), np.vstack(pts_bottom), np.vstack(pts_tower)))
     pts = np.vstack((np.vstack(pts_top), np.vstack(pts_tower)))
 
-    ymin, ymax = -pts[:,1].min(), pts[:,1].max()
-    y = np.linspace(ymin, ymax)
-    print (ymin, ymax)
-    x = np.linspace(-10, 10)
-    z = np.array([0.])
-    tmp = Utils.ndgrid(x,y,z)
-
-    # Refine the mesh around topography
-    mesh = refineTree(mesh, tmp, dtype='surface',
-                                       octreeLevels=[0, 0, 0, 0, 0, 1], finalize=False)
-
     mesh = refineTree(mesh, pts, dtype='point',
                                        octreeLevels=[1, 0, 0], finalize=False)
     survey_length = 400.
@@ -121,16 +118,17 @@ for i_tower, n_tower in enumerate(n_towers):
     x -= x.max()/2.
 
     y = np.array([abs(mesh.vectorCCy).min()])
-    z_src = 40.
-    z = np.array([z_src])
+    z = np.array([source_height])
 
     xyz = Utils.ndgrid(x, y, z)
     mesh = refineTree(mesh, xyz, dtype='point',
                                        octreeLevels=[1, 0, 0], finalize=True, maxLevel=maxLevel)
     # sigma_ground = 1e3
-    sigma = np.ones(mesh.nC) * 1./20
+    sigma_half = 1./20.
+    sigma = np.ones(mesh.nC) * sigma_half
     inds_air = mesh.gridCC[:, 2] > 0.
-    sigma[mesh.gridCC[:, 2] > 0.] = 1e-8
+    sigma_air = 1e-8
+    sigma[mesh.gridCC[:, 2] > 0.] = sigma_air
 
     indArr, levels = mesh.__getstate__()
     inds = levels == levels.max()
@@ -147,14 +145,17 @@ for i_tower, n_tower in enumerate(n_towers):
     sigma_rod = 1e8
     area = (mesh.hx.min() * 4)**2
     sigma[np.logical_and(inds, inds_air)] = sigma_copper * area_copper / area
-
     inds_layer_near = (
         (np.logical_and(mesh.gridCC[:,2]<0., mesh.gridCC[:,2]>-layer_thickness)) & 
         (np.logical_and(mesh.gridCC[:,0]>-4, mesh.gridCC[:,0]<4)) &
-        (np.logical_and(mesh.gridCC[:,1]>-ymin-5, mesh.gridCC[:,1]<ymax+5))
+        (np.logical_and(mesh.gridCC[:,1]>-45, mesh.gridCC[:,1]<45))
     )
-    sigma[inds_layer_near] = 1./resistivity_near    
+
+    sigma[inds_layer_near] = 1./resistivity_near
+    inds_layer = np.logical_and(mesh.gridCC[:,2]<0., mesh.gridCC[:,2]>-3)
     sigma[np.logical_and(inds, ~inds_air) & (inds_layer)] = sigma_rod * area_rod / area
+    
+    mesh.write_vtk('test'+str(i_src), models={'sigma':sigma})
 
     from pymatsolver import Pardiso
     from SimPEG import EM
@@ -162,14 +163,12 @@ for i_tower, n_tower in enumerate(n_towers):
 
     def compute_response(sigma):
         srcList = []
-        z_src = 40.
         z_offset = 0.
         x_offset = 0.
         radius = 13.25
         for x_src in x:
-            z_src = z_src
-            rxloc = np.array([x_src+x_offset, 0., z_src+z_offset])
-            srcloc = np.array([x_src, 0., z_src])
+            rxloc = np.array([x_src+x_offset, 0., source_height+z_offset])
+            srcloc = np.array([x_src, 0., source_height])
             rx = EM.TDEM.Rx.Point_dbdt(rxloc, np.logspace(np.log10(1e-5), np.log10(1e-2), 31), 'z')
             src = EM.TDEM.Src.CircularLoop([rx], waveform=EM.TDEM.Src.StepOffWaveform(), loc=srcloc, radius=radius)
             srcList.append(src)
@@ -190,6 +189,6 @@ for i_tower, n_tower in enumerate(n_towers):
         return xyz, data
 
     xyz, data = compute_response(sigma)
-    print(i_tower, n_tower)
+    print(i_src, source_height)
     np.save(result_dir+'xyz', xyz)
-    np.save(result_dir+'data' + str(n_tower), data)
+    np.save(result_dir+'data' + str(i_src), data)

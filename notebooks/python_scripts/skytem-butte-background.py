@@ -20,9 +20,6 @@ sigma_for_padding = 1./100.
 # print (diffusion_distance(1e-6, sigma_for_padding) * 2)
 padding_distance = np.round(diffusion_distance(1e-2, sigma_for_padding) * 2)
 
-import timeit
-
-start = timeit.timeit()
 
 data_dir = "./data/"
 waveform_hm = np.loadtxt(data_dir+"HM_butte_312.txt")
@@ -147,7 +144,7 @@ area_rod = np.pi * radius_rod **2
 sigma_copper = 6e7
 sigma_rod = 1e8
 area = (mesh.hx.min() * 4)**2
-sigma[np.logical_and(inds, inds_air)] = sigma_copper * area_copper / area
+# sigma[np.logical_and(inds, inds_air)] = sigma_copper * area_copper / area
 inds_layer_near = (
     (np.logical_and(mesh.gridCC[:,2]<0., mesh.gridCC[:,2]>-layer_thickness)) & 
     (np.logical_and(mesh.gridCC[:,0]>-4, mesh.gridCC[:,0]<4)) &
@@ -163,14 +160,14 @@ sigma[~inds_air] = f_sigma(mesh.gridCC[~inds_air,2])
 # sigma[inds_layer_near] = 1./5.
 
 inds_layer = np.logical_and(mesh.gridCC[:,2]<0., mesh.gridCC[:,2]>-3)
-sigma[np.logical_and(inds, ~inds_air) & (inds_layer)] = sigma_rod * area_rod / area
+# sigma[np.logical_and(inds, ~inds_air) & (inds_layer)] = sigma_rod * area_rod / area
 
 from pymatsolver import Pardiso
 from SimPEG import EM
 from scipy.constants import mu_0
 
-mesh.write_vtk('test', models={'sigma':sigma})
-mesh.writeUBC('mesh.msh', models={'sigma.con':sigma})
+mesh.write_vtk('test-ref', models={'sigma':sigma})
+mesh.writeUBC('mesh.msh', models={'sigma-ref.con':sigma})
 
 def compute_response(sigma):
     srcList = []
@@ -203,9 +200,6 @@ def compute_response(sigma):
 
 xyz, data = compute_response(sigma)
 
-end = timeit.timeit()
-print(("Elapsed time is %1.f")%(end - start))
-print (mesh.nC)
 
 np.save(result_dir+'xyz', xyz)
-np.save(result_dir+'data', data)
+np.save(result_dir+'data-ref', data)
